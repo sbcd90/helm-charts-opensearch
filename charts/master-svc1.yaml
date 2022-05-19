@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opensearch-cluster-master-0-svc
+  labels:
+    statefulset.kubernetes.io/pod-name: opensearch-cluster-master-0
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 9200
+      protocol: TCP     
+  selector:
+    statefulset.kubernetes.io/pod-name: opensearch-cluster-master-0

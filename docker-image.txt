@@ -1,0 +1,43 @@
+go to /home/deysubho/Documents/programs/alerting/alerting/build/distributions
+
+& copy opensearch-alerting-2.0.0.0-alpha1-SNAPSHOT.zip into /home/deysubho/Documents/programs/OpenSearch/distribution/docker/build/docker/opensearch-2.0.0-SNAPSHOT/plugins
+
+extract zip file in plugins directory.
+
+now go back to /home/deysubho/Documents/programs/OpenSearch/distribution/docker/build/docker directory, right-click on opensearch-2.0.0-SNAPSHOT folder & click on compress.
+
+now in terminal, 
+
+cd /home/deysubho/Documents/programs/OpenSearch/distribution/docker/build/docker
+
+docker build -t opensearch_old2:latest .
+
+clone helm-charts
+
+cd /home/deysubho/Documents/programs/helm-charts/charts/opensearch
+
+helm delete opensearch-master
+helm delete opensearch-data
+helm delete opensearch-client
+
+change image name/tag in master.yaml, data.yaml & client.yaml
+
+image:
+  repository: "sbcd90/opensearch_old2"
+  # override image tag, which is .Chart.AppVersion by default
+  tag: "2.0.0"
+  pullPolicy: "Always"
+
+helm  install opensearch-master . -f ../master.yaml
+helm  install opensearch-data . -f ../data.yaml
+helm  install opensearch-client . -f ../client.yaml
+
+kube-prometheus
+===============
+
+check charts/kube-prometheus
+https://computingforgeeks.com/setup-prometheus-and-grafana-on-kubernetes/
+
+
+
+

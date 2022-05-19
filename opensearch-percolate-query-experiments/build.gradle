@@ -1,0 +1,53 @@
+plugins {
+    id 'application'
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.20-RC'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        url 'http://jcenter.bintray.com'
+        allowInsecureProtocol true
+    }
+}
+
+dependencies {
+    implementation 'org.opensearch:opensearch:1.2.4-SNAPSHOT'
+    implementation 'org.opensearch.client:opensearch-rest-high-level-client:1.2.4-SNAPSHOT'
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.13.+"
+    implementation "khttp:khttp:1.0.0"
+//    implementation 'org.opensearch.plugin:percolator-client:1.2.4-SNAPSHOT'
+    implementation files('/home/deysubho/Documents/softwares/latest/percolator/percolator-client-1.3.0-SNAPSHOT.jar')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+
+application {
+    mainClass.set("org.opensearch.client.MemoryIndexClientKt")
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "org.opensearch.client.MemoryIndexClientKt"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}

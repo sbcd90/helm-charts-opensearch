@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    prometheus: prometheus-operator-operator
+    release: prometheus-operator
+  name: java-service-monitor
+spec:
+  endpoints:
+    - interval: 5s
+      port: metrics
+  namespaceSelector:
+    any: true
+  selector:
+    matchLabels:
+      app-type: opensearch
